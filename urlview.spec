@@ -1,6 +1,6 @@
 %define name	urlview
 %define version	0.9
-%define release	%mkrel 8
+%define release	%mkrel 9
 
 Name: %{name}
 Version: %{version}
@@ -22,7 +22,7 @@ urlview extracts URLs from a given text file, and presents a menu
 of URLs to view using a user specified command.
 
 %prep
-%setup -q 
+%setup -q
 %patch -p1
 %patch1 -p1
 
