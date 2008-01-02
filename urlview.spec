@@ -13,6 +13,7 @@ Requires: slang >= 0.99.38, webclient
 Source1: urlview-regex.o-alpha.bz2
 Patch: urlview-comma.patch2
 Patch1: url_path.patch
+Buildroot: %{_tmppath}/%{name}-buildroot
 Summary: A URL extractor/viewer for use with Mutt
 BuildRequires: slang-devel slang
 
