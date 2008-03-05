@@ -1,10 +1,9 @@
 %define name	urlview
 %define version	0.9
-%define release	%mkrel 9
 
 Name: %{name}
 Version: %{version}
-Release: %{release}
+Release: %mkrel 10
 License: GPL
 Group: Networking/Mail
 Source: %{name}-%{version}.tar.bz2
