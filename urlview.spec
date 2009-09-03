@@ -3,7 +3,7 @@
 
 Name: %{name}
 Version: %{version}
-Release: %mkrel 12
+Release: %mkrel 13
 License: GPL
 Group: Networking/Mail
 Source: %{name}-%{version}.tar.bz2
