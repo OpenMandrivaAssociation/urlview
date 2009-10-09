@@ -1,6 +1,6 @@
 Name:    urlview
 Version: 0.9
-Release: %mkrel 13
+Release: %mkrel 14
 
 Summary: A URL extractor/viewer for use with Mutt
 License: GPL
