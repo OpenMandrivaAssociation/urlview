@@ -12,6 +12,8 @@ Requires: slang >= 0.99.38, webclient
 Source1: urlview-regex.o-alpha.bz2
 Patch: urlview-comma.patch2
 Patch1: url_path.patch
+# fix #54424: fix segfault when opening an url
+Patch2: urlview-0.9-fix_segfault.patch
 Buildroot: %{_tmppath}/%{name}-buildroot
 Summary: A URL extractor/viewer for use with Mutt
 BuildRequires: slang-devel slang
@@ -24,6 +26,7 @@ of URLs to view using a user specified command.
 %setup -q
 %patch -p1
 %patch1 -p1
+%patch2 -b .segfault
 
 %build
 #suckattack
@@ -52,5 +55,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/urlview
 %{_bindir}/url_handler.sh
 %{_mandir}/man1/urlview.1*
-
-
