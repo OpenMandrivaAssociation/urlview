@@ -9,7 +9,7 @@ Url:     ftp://ftp.mutt.org/mutt/contrib/
 Source0: ftp://ftp.mutt.org/mutt/contrib/%{name}-%{version}.tar.bz2
 Source1: urlview-regex.o-alpha.bz2
 Patch0 : urlview-comma.patch2
-Patch1:  url_path.patch
+Patch1:  urlview-0.9-use_firefox.patch
 # fix #54424: fix segfault when opening an url
 Patch2:  urlview-0.9-fix_segfault.patch
 
@@ -27,7 +27,7 @@ of URLs to view using a user specified command.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+%patch1 -p1 -b .firefox
 %patch2 -b .segfault
 
 %build
