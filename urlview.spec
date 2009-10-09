@@ -1,22 +1,24 @@
-%define name	urlview
-%define version	0.9
-
-Name: %{name}
-Version: %{version}
+Name:    urlview
+Version: 0.9
 Release: %mkrel 13
-License: GPL
-Group: Networking/Mail
-Source: %{name}-%{version}.tar.bz2
-URL: ftp://ftp.mutt.org/mutt/contrib/
-Requires: slang >= 0.99.38, webclient
-Source1: urlview-regex.o-alpha.bz2
-Patch: urlview-comma.patch2
-Patch1: url_path.patch
-# fix #54424: fix segfault when opening an url
-Patch2: urlview-0.9-fix_segfault.patch
-Buildroot: %{_tmppath}/%{name}-buildroot
+
 Summary: A URL extractor/viewer for use with Mutt
-BuildRequires: slang-devel slang
+License: GPL
+Group:   Networking/Mail
+Url:     ftp://ftp.mutt.org/mutt/contrib/
+Source0: ftp://ftp.mutt.org/mutt/contrib/%{name}-%{version}.tar.bz2
+Source1: urlview-regex.o-alpha.bz2
+Patch0 : urlview-comma.patch2
+Patch1:  url_path.patch
+# fix #54424: fix segfault when opening an url
+Patch2:  urlview-0.9-fix_segfault.patch
+
+BuildRequires: slang
+BuildRequires: slang-devel
+Buildroot: %{_tmppath}/%{name}-%{version}-%{release}
+
+Requires: slang >= 0.99.38
+Requires: webclient
 
 %description
 urlview extracts URLs from a given text file, and presents a menu
@@ -24,7 +26,7 @@ of URLs to view using a user specified command.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
 %patch1 -p1
 %patch2 -b .segfault
 
