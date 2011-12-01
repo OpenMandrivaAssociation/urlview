@@ -40,14 +40,14 @@ bzcat %{SOURCE1} > regex/regex.o
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_mandir}/man1
 %makeinstall
-install -m755 url_handler.sh $RPM_BUILD_ROOT%{_bindir}/url_handler.sh
+install -m755 url_handler.sh %{buildroot}%{_bindir}/url_handler.sh
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
