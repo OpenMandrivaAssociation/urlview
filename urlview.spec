@@ -27,6 +27,9 @@ of URLs to view using a user specified command.
 %patch0 -p1
 %patch1 -p1 -b .firefox
 %patch2 -b .segfault
+# this should've been created by passing -i to autoreconf...?
+touch NEWS
+autoreconf -fi
 
 %build
 #suckattack
