@@ -1,6 +1,6 @@
 Name:		urlview
 Version:	0.9
-Release:	18
+Release:	19
 
 Summary:	A URL extractor/viewer for use with Mutt
 License:	GPLv2+
