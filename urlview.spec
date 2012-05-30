@@ -13,7 +13,6 @@ Patch1:  urlview-0.9-use_firefox.patch
 Patch2:  urlview-0.9-fix_segfault.patch
 
 BuildRequires: slang-devel
-Buildroot: %{_tmppath}/%{name}-%{version}-%{release}
 
 Requires: webclient
 
@@ -36,17 +35,12 @@ autoreconf -fi
 %make
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_mandir}/man1
 %makeinstall
 install -m755 url_handler.sh %{buildroot}%{_bindir}/url_handler.sh
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc AUTHORS ChangeLog COPYING
 %doc INSTALL README sample.urlview 
 %doc urlview.sgml
