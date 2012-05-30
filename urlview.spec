@@ -1,20 +1,20 @@
-Name:    urlview
-Version: 0.9
-Release: 18
+Name:		urlview
+Version:	0.9
+Release:	18
 
-Summary: A URL extractor/viewer for use with Mutt
-License: GPLv2+
-Group:   Networking/Mail
-Url:     ftp://ftp.mutt.org/mutt/contrib/
-Source0: ftp://ftp.mutt.org/mutt/contrib/%{name}-%{version}.tar.bz2
-Patch0 : urlview-comma.patch2
-Patch1:  urlview-0.9-use_firefox.patch
+Summary:	A URL extractor/viewer for use with Mutt
+License:	GPLv2+
+Group:		Networking/Mail
+Url:		ftp://ftp.mutt.org/mutt/contrib/
+Source0:	ftp://ftp.mutt.org/mutt/contrib/%{name}-%{version}.tar.bz2
+Patch0:		urlview-comma.patch2
+Patch1:		urlview-0.9-use_firefox.patch
 # fix #54424: fix segfault when opening an url
-Patch2:  urlview-0.9-fix_segfault.patch
+Patch2:		urlview-0.9-fix_segfault.patch
 
-BuildRequires: slang-devel
+BuildRequires:	slang-devel
 
-Requires: webclient
+Requires:	webclient
 
 %description
 urlview extracts URLs from a given text file, and presents a menu
@@ -30,7 +30,6 @@ touch NEWS
 autoreconf -fi
 
 %build
-#suckattack
 %configure --with-slang
 %make
 
