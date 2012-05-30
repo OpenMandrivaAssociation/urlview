@@ -1,6 +1,6 @@
 Name:    urlview
 Version: 0.9
-Release: %mkrel 17
+Release: 18
 
 Summary: A URL extractor/viewer for use with Mutt
 License: GPL
@@ -13,11 +13,9 @@ Patch1:  urlview-0.9-use_firefox.patch
 # fix #54424: fix segfault when opening an url
 Patch2:  urlview-0.9-fix_segfault.patch
 
-BuildRequires: slang
 BuildRequires: slang-devel
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}
 
-Requires: slang >= 0.99.38
 Requires: webclient
 
 %description
