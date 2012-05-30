@@ -41,7 +41,7 @@ mkdir -p %{buildroot}%{_mandir}/man1
 install -m755 url_handler.sh %{buildroot}%{_bindir}/url_handler.sh
 
 %files
-%doc AUTHORS ChangeLog COPYING
+%doc AUTHORS ChangeLog
 %doc INSTALL README sample.urlview 
 %doc urlview.sgml
 %{_bindir}/urlview
