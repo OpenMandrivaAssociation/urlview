@@ -7,7 +7,6 @@ License: GPLv2+
 Group:   Networking/Mail
 Url:     ftp://ftp.mutt.org/mutt/contrib/
 Source0: ftp://ftp.mutt.org/mutt/contrib/%{name}-%{version}.tar.bz2
-Source1: urlview-regex.o-alpha.bz2
 Patch0 : urlview-comma.patch2
 Patch1:  urlview-0.9-use_firefox.patch
 # fix #54424: fix segfault when opening an url
@@ -33,10 +32,6 @@ autoreconf -fi
 
 %build
 #suckattack
-%ifarch alpha
-mkdir regex
-bzcat %{SOURCE1} > regex/regex.o
-%endif
 %configure --with-slang
 %make
 
