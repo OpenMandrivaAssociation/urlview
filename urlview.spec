@@ -3,7 +3,7 @@ Version: 0.9
 Release: 18
 
 Summary: A URL extractor/viewer for use with Mutt
-License: GPL
+License: GPLv2+
 Group:   Networking/Mail
 Url:     ftp://ftp.mutt.org/mutt/contrib/
 Source0: ftp://ftp.mutt.org/mutt/contrib/%{name}-%{version}.tar.bz2
