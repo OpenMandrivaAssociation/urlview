@@ -1,0 +1,196 @@
+*** urlview-0.9/Makefile.in	Tue Jul  4 03:16:37 2000
+--- urlview-0.9/Makefile.in.org	Tue Aug 15 17:43:29 2000
+***************
+*** 64,70 ****
+  
+  bin_PROGRAMS = urlview
+  
+! urlview_SOURCES = urlview.c enter.c dokey.c enter.h quote.c quote.h
+  urlview_LDADD = @LIBOBJS@
+  
+  EXTRA_DIST = text urlview.man urlview.sgml sample.urlview 	url_handler.sh url_handler.sh.suse urlview.conf.suse
+--- 64,70 ----
+  
+  bin_PROGRAMS = urlview
+  
+! urlview_SOURCES = urlview.c enter.c dokey.c enter.h quote.c quote.h escape.c escape.h
+  urlview_LDADD = @LIBOBJS@
+  
+  EXTRA_DIST = text urlview.man urlview.sgml sample.urlview 	url_handler.sh url_handler.sh.suse urlview.conf.suse
+***************
+*** 81,87 ****
+  CPPFLAGS = @CPPFLAGS@
+  LDFLAGS = @LDFLAGS@
+  LIBS = @LIBS@
+! urlview_OBJECTS =  urlview.o enter.o dokey.o quote.o
+  urlview_DEPENDENCIES =  @LIBOBJS@
+  urlview_LDFLAGS = 
+  CFLAGS = @CFLAGS@
+--- 81,87 ----
+  CPPFLAGS = @CPPFLAGS@
+  LDFLAGS = @LDFLAGS@
+  LIBS = @LIBS@
+! urlview_OBJECTS =  urlview.o enter.o dokey.o quote.o escape.o
+  urlview_DEPENDENCIES =  @LIBOBJS@
+  urlview_LDFLAGS = 
+  CFLAGS = @CFLAGS@
+*** urlview-0.9/urlview.c	Tue Jul  4 03:14:30 2000
+--- urlview-0.9/urlview.c.org	Tue Aug 15 17:38:58 2000
+***************
+*** 157,162 ****
+--- 157,163 ----
+    char regexp[1024];
+    char search[1024];
+    char scratch[1024];
++   char escaped_url[1024];
+    char **url;
+    int urlsize = URLSIZE;
+    char *pc;
+***************
+*** 505,515 ****
+  	{
+  	  free (url[current]);
+  	  url[current] = strdup (buf);
+  	  endwin ();
+  	  if (strstr (command, "%s"))
+! 	    snprintf (buf, sizeof (buf), command, quote (scratch, sizeof (scratch), url[current]));
+  	  else
+! 	    snprintf (buf, sizeof (buf), "%s %s", command, quote (scratch, sizeof (scratch), url[current]));
+  	  printf ("Executing: %s...\n", buf);
+  	  fflush (stdout);
+  	  system (buf);
+--- 506,517 ----
+  	{
+  	  free (url[current]);
+  	  url[current] = strdup (buf);
++ 	  escape(escaped_url,sizeof(escaped_url), url[current]);
+  	  endwin ();
+  	  if (strstr (command, "%s"))
+! 	    snprintf (buf, sizeof (buf), command, quote (scratch, sizeof (scratch), escaped_url));
+  	  else
+! 	    snprintf (buf, sizeof (buf), "%s %s", command, quote (scratch, sizeof (scratch), escaped_url));
+  	  printf ("Executing: %s...\n", buf);
+  	  fflush (stdout);
+  	  system (buf);
+*** urlview-0.9/escape.c	Tue May  5 13:32:27 1998
+--- urlview-0.9/escape.c.org	Tue Aug 15 17:31:48 2000
+***************
+*** 0 ****
+--- 1,63 ----
++ /*
++  * Copyright (C) 2000 Ben Reser <ben@reser.org>
++  * 
++  *     This program is free software; you can redistribute it
++  *     and/or modify it under the terms of the GNU General Public
++  *     License as published by the Free Software Foundation; either
++  *     version 2 of the License, or (at your option) any later
++  *     version.
++  * 
++  *     This program is distributed in the hope that it will be
++  *     useful, but WITHOUT ANY WARRANTY; without even the implied
++  *     warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
++  *     PURPOSE.  See the GNU General Public License for more
++  *     details.
++  * 
++  *     You should have received a copy of the GNU General Public
++  *     License along with this program; if not, write to the Free
++  *     Software Foundation, Inc., 675 Mass Ave, Cambridge, MA
++  *     02139, USA.
++  * 
++  */
++ 
++ 
++ #include <stdio.h>
++ 
++ #include "escape.h"
++ 
++ 
++ /* 
++  * Replaces commas with %2C so that URLS with commas in them will work with
++  * netscape.  This was stolen out of the quote function in urlview which was
++  * stolen from someplace else.
++  */
++ 
++ char *escape (char *d, size_t l, const char *f)
++ {
++   size_t i, j = 0;
++ 
++   if(!f) 
++   {
++     *d = '\0';
++     return 0;
++   }
++ 
++   /* leave some space for the trailing characters. */
++   l -= 6;
++   
++   for(i = 0; j < l && f[i]; i++)
++   {
++     if(f[i] == ',')
++     {
++       d[j++] = '%';
++       d[j++] = '2';
++       d[j++] = 'C';
++     }
++     else
++       d[j++] = f[i];
++   }
++   
++   d[j]   = '\0';
++   
++   return d;
++ }
+*** urlview-0.9/escape.h	Tue May  5 13:32:27 1998
+--- urlview-0.9/escape.h.org	Tue Aug 15 17:32:06 2000
+***************
+*** 0 ****
+--- 1,30 ----
++ /*
++  * Copyright (C) 2000 Ben Reser <ben@reser.org>
++  * 
++  *     This program is free software; you can redistribute it
++  *     and/or modify it under the terms of the GNU General Public
++  *     License as published by the Free Software Foundation; either
++  *     version 2 of the License, or (at your option) any later
++  *     version.
++  * 
++  *     This program is distributed in the hope that it will be
++  *     useful, but WITHOUT ANY WARRANTY; without even the implied
++  *     warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
++  *     PURPOSE.  See the GNU General Public License for more
++  *     details.
++  * 
++  *     You should have received a copy of the GNU General Public
++  *     License along with this program; if not, write to the Free
++  *     Software Foundation, Inc., 675 Mass Ave, Cambridge, MA
++  *     02139, USA.
++  * 
++  */
++ 
++ 
++ 
++ #ifndef _ESCAPE_H
++ #define _ESCAPE_H
++ 
++ char *escape (char *d, size_t l, const char *f);
++ 
++ #endif
+*** urlview-0.9/Makefile.am.org	Wed Aug 16 18:32:59 2000
+--- urlview-0.9/Makefile.am	Wed Aug 16 18:33:10 2000
+***************
+*** 2,8 ****
+  
+  bin_PROGRAMS = urlview
+  
+! urlview_SOURCES = urlview.c enter.c dokey.c enter.h quote.c quote.h
+  urlview_LDADD = @LIBOBJS@
+  
+  EXTRA_DIST = text urlview.man urlview.sgml sample.urlview \
+--- 2,8 ----
+  
+  bin_PROGRAMS = urlview
+  
+! urlview_SOURCES = urlview.c enter.c dokey.c enter.h quote.c quote.h escape.c escape.h
+  urlview_LDADD = @LIBOBJS@
+  
+  EXTRA_DIST = text urlview.man urlview.sgml sample.urlview \
