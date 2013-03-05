@@ -1,21 +1,19 @@
+Summary:	A URL extractor/viewer for use with Mutt
 Name:		urlview
 Version:	0.9
 Release:	18
-
-Summary:	A URL extractor/viewer for use with Mutt
-License:	GPL
+License:	GPLv2
 Group:		Networking/Mail
 Url:		ftp://ftp.mutt.org/mutt/contrib/
-Source0:	ftp://ftp.mutt.org/mutt/contrib/%{name}-%{version}.tar.bz2
-Source1:	urlview-regex.o-alpha.bz2
+Source0:	ftp://ftp.mutt.org/mutt/contrib/%{name}-%{version}.tar.gz
+#Source1:	urlview-regex.o-alpha.bz2
 Patch0:		urlview-comma.patch2
 Patch1:		urlview-0.9-use_firefox.patch
 # fix #54424: fix segfault when opening an url
 Patch2:		urlview-0.9-fix_segfault.patch
 
-BuildRequires:	autoconf automake libtool
-BuildRequires:	slang-devel
-
+BuildRequires:	libtool
+BuildRequires:	pkgconfig(slang)
 Requires:	webclient
 
 %description
@@ -26,7 +24,10 @@ of URLs to view using a user specified command.
 %setup -q
 %patch0 -p1
 %patch1 -p1 -b .firefox
-%patch2 -b .segfault
+%patch2 -p0 -b .segfault
+
+sed -i -e 's|AM_PROG_CC_STDC|AC_PROG_CC|g' \
+	configure*
 
 %build
 #suckattack
