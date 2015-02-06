@@ -1,7 +1,7 @@
 Summary:	A URL extractor/viewer for use with Mutt
 Name:		urlview
 Version:	0.9
-Release:	18
+Release:	19
 License:	GPLv2
 Group:		Networking/Mail
 Url:		ftp://ftp.mutt.org/mutt/contrib/
