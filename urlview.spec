@@ -12,6 +12,11 @@ Patch1:		urlview-0.9-use_firefox.patch
 # fix #54424: fix segfault when opening an url
 Patch2:		urlview-0.9-fix_segfault.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	libtool
 BuildRequires:	pkgconfig(slang)
 Requires:	webclient
